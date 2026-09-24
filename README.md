@@ -1,3 +1,1 @@
-# y_senguloglu.github.io
-
-## This is yavuz
+# Public poetry sharing website by Yavuz
