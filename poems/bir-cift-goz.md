@@ -1,6 +1,6 @@
 ---
 title: Bir Çift Göz
-date: 24 Eylül 2026
+poem_date: 24 Eylül 2026
 ---
 
 Sözlerin mürekkebi olan ellere,
