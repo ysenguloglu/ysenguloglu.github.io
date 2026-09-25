@@ -1,6 +1,6 @@
 ---
 title: Yaşamak Mucizesi
-date: 19 Nisan 2025
+poem_date: 19 Nisan 2025
 ---
 
 Şimdi musalla taşındakilerle birer birer konuşsak,
