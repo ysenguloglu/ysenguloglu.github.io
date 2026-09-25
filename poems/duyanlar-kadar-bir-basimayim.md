@@ -1,6 +1,6 @@
 ---
 title: Duyanlar Kadar Bir Başımayım
-date: 3 Ekim 2026
+poem_date: 3 Ekim 2026
 ---
 
 İçimde bir kuraklık,
