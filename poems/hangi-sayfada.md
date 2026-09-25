@@ -1,6 +1,6 @@
 ---
 title: Hangi Sayfada?
-date: 12 Eylül 2026
+poem_date: 12 Eylül 2026
 ---
   
 Bekliyorum,
