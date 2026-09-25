@@ -20,9 +20,9 @@ let poems = [];
 let currentPoem = 0;
 
 
-/* --------------------------------
+/* ========================================
    MARKDOWN OKUMA
--------------------------------- */
+======================================== */
 
 function parseMarkdown(markdown) {
 
@@ -55,6 +55,7 @@ function parseMarkdown(markdown) {
             metadata[key] = value;
 
         });
+
     }
 
     return {
@@ -62,12 +63,27 @@ function parseMarkdown(markdown) {
         date: metadata.date || "",
         content: content
     };
+
 }
 
 
-/* --------------------------------
+/* ========================================
+   SLUG OLUŞTUR
+======================================== */
+
+function createSlug(filename) {
+
+    return filename
+        .replace(/\.md$/i, "")
+        .toLowerCase()
+        .trim();
+
+}
+
+
+/* ========================================
    GITHUB'DAN ŞİİRLERİ GETİR
--------------------------------- */
+======================================== */
 
 async function loadPoems() {
 
@@ -84,11 +100,11 @@ async function loadPoems() {
 
         const files = await response.json();
 
-        const markdownFiles = files
-            .filter(file =>
-                file.type === "file" &&
-                file.name.toLowerCase().endsWith(".md")
-            );
+
+        const markdownFiles = files.filter(file =>
+            file.type === "file" &&
+            file.name.toLowerCase().endsWith(".md")
+        );
 
 
         const loadedPoems = await Promise.all(
@@ -105,9 +121,13 @@ async function loadPoems() {
 
                 const poem = parseMarkdown(markdown);
 
+
                 return {
                     ...poem,
-                    filename: file.name
+
+                    filename: file.name,
+
+                    slug: createSlug(file.name)
                 };
 
             })
@@ -115,7 +135,9 @@ async function loadPoems() {
         );
 
 
-        /* Tarihe göre yeni → eski */
+        /* ========================================
+           TARİHE GÖRE YENİ → ESKİ
+        ======================================== */
 
         loadedPoems.sort((a, b) => {
 
@@ -129,7 +151,41 @@ async function loadPoems() {
 
         poems = loadedPoems;
 
+
+        /* ŞİİRLERİ LİSTELE */
+
         renderPoems();
+
+
+        /* ========================================
+           URL'DE ŞİİR VAR MI?
+           
+           Örnek:
+           ?poem=bir-cift-goz
+        ======================================== */
+
+        const urlParams =
+            new URLSearchParams(window.location.search);
+
+        const poemSlug =
+            urlParams.get("poem");
+
+
+        if (poemSlug) {
+
+            const poemIndex = poems.findIndex(
+                poem => poem.slug === poemSlug
+            );
+
+
+            if (poemIndex !== -1) {
+
+                openPoem(poemIndex, false);
+
+            }
+
+        }
+
 
     } catch (error) {
 
@@ -146,9 +202,9 @@ async function loadPoems() {
 }
 
 
-/* --------------------------------
+/* ========================================
    ŞİİRLERİ LİSTELE
--------------------------------- */
+======================================== */
 
 function renderPoems() {
 
@@ -166,23 +222,30 @@ function renderPoems() {
         `;
 
         return;
+
     }
 
 
     poems.forEach((poem, index) => {
 
-        const item = document.createElement("div");
+        const item =
+            document.createElement("div");
 
         item.className = "poem-item";
+
 
         item.innerHTML = `
             <h3>${escapeHtml(poem.title)}</h3>
             <span>${escapeHtml(poem.date)}</span>
         `;
 
+
         item.addEventListener("click", () => {
+
             openPoem(index);
+
         });
+
 
         poemList.appendChild(item);
 
@@ -191,41 +254,83 @@ function renderPoems() {
 }
 
 
-/* 
---------------------------------
+/* ========================================
    ŞİİRİ AÇ
--------------------------------- */
+======================================== */
 
 function openPoem(index, updateUrl = true) {
+
+    if (!poems[index]) return;
+
 
     currentPoem = index;
 
     const poem = poems[index];
 
+
+    /* ŞİİR BİLGİLERİ */
+
     poemTitle.textContent = poem.title;
+
     poemDate.textContent = poem.date;
+
     poemContent.textContent = poem.content;
+
+
+    /* ========================================
+       ÖNCEKİ / SONRAKİ BUTONLAR
+    ======================================== */
 
     previousButton.style.visibility =
         index > 0 ? "visible" : "hidden";
 
     nextButton.style.visibility =
-        index < poems.length - 1 ? "visible" : "hidden";
+        index < poems.length - 1
+            ? "visible"
+            : "hidden";
+
+
+    /* ========================================
+       GÖRÜNÜMÜ DEĞİŞTİR
+    ======================================== */
 
     poemSection.classList.add("hidden");
+
     poemView.classList.remove("hidden");
 
 
+    /* ========================================
+       URL'Yİ GÜNCELLE
+       
+       Örnek:
+       https://ysenguloglu.github.io/?poem=bir-cift-goz
+    ======================================== */
+
     if (updateUrl) {
 
-        const url = new URL(window.location);
+        const url =
+            new URL(window.location.href);
 
-        url.searchParams.set("poem", poem.slug);
+        url.searchParams.set(
+            "poem",
+            poem.slug
+        );
 
-        window.history.pushState({}, "", url);
+
+        window.history.pushState(
+            {
+                poem: poem.slug
+            },
+            "",
+            url
+        );
 
     }
 
+
+    /* ========================================
+       SAYFANIN BAŞINA GİT
+    ======================================== */
 
     window.scrollTo({
         top: 0,
@@ -235,14 +340,31 @@ function openPoem(index, updateUrl = true) {
 }
 
 
-/* --------------------------------
-   GERİ DÖN
--------------------------------- */
+/* ========================================
+   ANA SAYFAYA DÖN
+======================================== */
 
 backButton.addEventListener("click", () => {
 
     poemView.classList.add("hidden");
+
     poemSection.classList.remove("hidden");
+
+
+    /* URL'DEKİ ?poem=... KISMINI SİL */
+
+    const url =
+        new URL(window.location.href);
+
+    url.searchParams.delete("poem");
+
+
+    window.history.pushState(
+        {},
+        "",
+        url
+    );
+
 
     window.scrollTo({
         top: poemSection.offsetTop,
@@ -252,39 +374,88 @@ backButton.addEventListener("click", () => {
 });
 
 
-/* --------------------------------
-   ÖNCEKİ
--------------------------------- */
+/* ========================================
+   ÖNCEKİ ŞİİR
+======================================== */
 
 previousButton.addEventListener("click", () => {
 
     if (currentPoem > 0) {
+
         openPoem(currentPoem - 1);
+
     }
 
 });
 
 
-/* --------------------------------
-   SONRAKİ
--------------------------------- */
+/* ========================================
+   SONRAKİ ŞİİR
+======================================== */
 
 nextButton.addEventListener("click", () => {
 
     if (currentPoem < poems.length - 1) {
+
         openPoem(currentPoem + 1);
+
     }
 
 });
 
 
-/* --------------------------------
+/* ========================================
+   TARAYICI GERİ / İLERİ BUTONLARI
+======================================== */
+
+window.addEventListener("popstate", () => {
+
+    const urlParams =
+        new URLSearchParams(window.location.search);
+
+    const poemSlug =
+        urlParams.get("poem");
+
+
+    /* URL'DE ŞİİR YOKSA ANA SAYFAYA DÖN */
+
+    if (!poemSlug) {
+
+        poemView.classList.add("hidden");
+
+        poemSection.classList.remove("hidden");
+
+        return;
+
+    }
+
+
+    /* ŞİİRİ BUL */
+
+    const poemIndex =
+        poems.findIndex(
+            poem => poem.slug === poemSlug
+        );
+
+
+    /* BULUNDUYSA AÇ */
+
+    if (poemIndex !== -1) {
+
+        openPoem(poemIndex, false);
+
+    }
+
+});
+
+
+/* ========================================
    HTML GÜVENLİĞİ
--------------------------------- */
+======================================== */
 
 function escapeHtml(text) {
 
-    return text
+    return String(text)
         .replace(/&/g, "&amp;")
         .replace(/</g, "&lt;")
         .replace(/>/g, "&gt;")
@@ -294,8 +465,8 @@ function escapeHtml(text) {
 }
 
 
-/* --------------------------------
+/* ========================================
    BAŞLAT
--------------------------------- */
+======================================== */
 
 loadPoems();
