@@ -1,6 +1,6 @@
 ---
 title: Anlatılamamış Heves
-date: 28 Mart 2025
+poem_date: 28 Mart 2025
 ---
 
 Geriye dönüp baktığında ne görüyorsun?
