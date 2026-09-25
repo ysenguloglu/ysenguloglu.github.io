@@ -1,6 +1,6 @@
 ---
 title: Eksik Bir Ömür
-date: 8 Ağustos 2026
+poem_date: 8 Ağustos 2026
 ---
 
 Bir çift nevresim,
