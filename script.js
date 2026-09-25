@@ -60,7 +60,7 @@ function parseMarkdown(markdown) {
 
     return {
         title: metadata.title || "Başlıksız",
-        date: metadata.date || "",
+        date: metadata.poem_date || "",
         content: content
     };
 
