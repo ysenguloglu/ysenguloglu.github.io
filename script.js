@@ -191,11 +191,12 @@ function renderPoems() {
 }
 
 
-/* --------------------------------
+/* 
+--------------------------------
    ŞİİRİ AÇ
 -------------------------------- */
 
-function openPoem(index) {
+function openPoem(index, updateUrl = true) {
 
     currentPoem = index;
 
@@ -205,16 +206,25 @@ function openPoem(index) {
     poemDate.textContent = poem.date;
     poemContent.textContent = poem.content;
 
-
     previousButton.style.visibility =
         index > 0 ? "visible" : "hidden";
 
     nextButton.style.visibility =
         index < poems.length - 1 ? "visible" : "hidden";
 
-
     poemSection.classList.add("hidden");
     poemView.classList.remove("hidden");
+
+
+    if (updateUrl) {
+
+        const url = new URL(window.location);
+
+        url.searchParams.set("poem", poem.slug);
+
+        window.history.pushState({}, "", url);
+
+    }
 
 
     window.scrollTo({
