@@ -1,6 +1,6 @@
 ---
 title: Müphem Gençliğim
-date: 6 Haziran 2026
+poem_date: 6 Haziran 2026
 ---
 
 Sağım solum rengarenk, yemyeşil ve canlı,
