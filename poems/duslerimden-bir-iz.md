@@ -29,4 +29,4 @@ El ele izleyebileceğimiz manzaralarını.
 Sonra akıp gidelim ural nehri gibi bir kıtadan diğerine.
 Kıskandıralım martıları vapurlar bizimle tanışırken.
 Bir zamana ait olalalım,
-Henüz kulaklarımız birbirimize bâkirken
+Henüz kulaklarımız birbirimize bâkirken.
