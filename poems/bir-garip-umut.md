@@ -1,6 +1,6 @@
 ---
 title: Bir Garip Umut
-date: 26 Mart 2024
+poem_date: 26 Mart 2024
 ---
 
 Nasıl bir zaman ve mekan birlikte olmalı,
