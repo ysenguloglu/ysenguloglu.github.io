@@ -1,6 +1,6 @@
 ---
 title: Ne İleri Ne Geri
-date: 11 Haziran 2024
+poem_date: 11 Haziran 2024
 ---
 
 Gökyüzünün bu kadar mavi olduğunu gördüğümde kendimi
