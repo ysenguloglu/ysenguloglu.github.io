@@ -5,7 +5,7 @@ poem_date: 21 Mayıs 2024
 
 Ne kadar uzak ve yakınsın.
 Bilemem hangi rüyadasın.
-Ne, nerde, nasıl ve ne zaman?
+Ne, nerede, nasıl ve ne zaman?
 Bilemem, cevaplardan uzağım.
 
 Görmek ne kadar acizdir seni.
