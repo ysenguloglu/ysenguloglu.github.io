@@ -10,7 +10,7 @@ Ben beni, kendi kendimi unutuyorum.
 
 Bazen kayıp gitmiş, anca rüyalara gözüken çocukluğumda,
 Hiç bir şeyini yaşayamadığım gençliğimde,
-3 kuruş para için çektiğim yollarda,
+Üç kuruş para için çektiğim yollarda,
 Hiç yaşamadığım aşklarda unutuyorum.
 
 Öyle çaresiz bir çığlığım var ki,
