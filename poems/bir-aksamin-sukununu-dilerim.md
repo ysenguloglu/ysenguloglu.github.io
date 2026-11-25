@@ -1,5 +1,5 @@
 ---
-title: Bir Düş Mü, Hayal Mi?
+title: Bir Akşamın Sükûnunu Dilerim
 poem_date: 17 Kasim 2026
 ---
 
