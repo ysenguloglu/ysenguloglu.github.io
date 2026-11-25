@@ -1,7 +1,7 @@
---
+---
 title: Bir Düş Mü, Hayal Mi?
 poem_date: 17 November 2026
---
+---
 
 Bir düş mü, hayal meyal bir gün mü bugün?
 Yarın sabah bir arşın uzak.
